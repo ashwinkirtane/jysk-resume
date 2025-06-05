@@ -31,6 +31,7 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
 
 @app.get("/about", dependencies=[Depends(verify_token)], tags=["Profile"])
 def get_about():
+    print('In the about API function')
     return {
         "name": "Ashwin Kirtane",
         "location": "Copenhagen, Denmark",
@@ -116,5 +117,6 @@ if __name__ == "__main__":
         now = time.time()
         seconds = now - program_starts
         if seconds > 300:
+            print(f'Triggering about API')
             trigger_about_api()
             program_starts = time.time()
