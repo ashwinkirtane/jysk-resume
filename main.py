@@ -109,14 +109,3 @@ def trigger_about_api():
         print('Success')
     else:
         print(response.status_code)
-
-
-if __name__ == "__main__":
-    program_starts = time.time()
-    while True:
-        now = time.time()
-        seconds = now - program_starts
-        if seconds > 300:
-            print(f'Triggering about API')
-            trigger_about_api()
-            program_starts = time.time()
