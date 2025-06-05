@@ -3,6 +3,8 @@ from typing import List
 from models import Experience, Education, Skill
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+import requests
+import time
 
 
 app = FastAPI(
@@ -96,6 +98,23 @@ def get_skills():
         Skill(category="Soft Skills", items=["Agile Project Management", "Stakeholder Communication", "OKRs and Strategy Execution"])
     ]
 
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
+def trigger_about_api():
+    url = "https://jysk-resume.onrender.com/about"
+    headers = {
+        'Authorization': 'Bearer 9aj8cpp8iLCKRAf0Zrb9ViWw8QVryMbJirUYXJDZUlmuBdxqVozvv8s28IZKwXep'
+    }
+    response = requests.get(url=url, headers=headers)
+    if response.status_code == 200:
+        print('Success')
+    else:
+        print(response.status_code)
+
+
+if __name__ == "__main__":
+    program_starts = time.time()
+    while True:
+        now = time.time()
+        seconds = now - program_starts
+        if seconds > 300:
+            trigger_about_api()
+            program_starts = time.time()
